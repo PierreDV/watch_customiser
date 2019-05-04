@@ -7,12 +7,13 @@ import "./Zoom.css";
 function Color(props) {
   return (
     <fieldset className="colors-container">
-      {props.colorOptions.map(option => (
+      {props.colorOptions.map((option) => (
         <label className="colorOption" key={option.description}>
           <input
             type="radio"
             name="colorChoice"
             value={JSON.stringify(option)}
+            onChange={props.handleColorSelect}
           />
           <ul>
             <li style={{ backgroundColor: option.primary }} />
@@ -54,13 +55,19 @@ function Zoom(props) {
 
 class ProductConfig extends Component {
   static Zoom = Zoom;
+  static Color = Color;
 
   state = {
-    zoom: this.props.zoom || 1
+    zoom: this.props.zoom || 1,
+    selectedColor: this.props.colorOptions[0]
   };
 
   handleZoom = value => {
     this.setState({ zoom: value });
+  };
+
+  handleColorSelect = e => {
+    this.setState({ selectedColor: JSON.parse(e.target.value) })
   };
 
   render() {
@@ -69,7 +76,8 @@ class ProductConfig extends Component {
         {this.props.children(
           this.props.colorOptions,
           { ...this.state },
-          this.handleZoom
+          this.handleZoom,
+          this.handleColorSelect
         )}
       </React.Fragment>
     );
@@ -77,4 +85,3 @@ class ProductConfig extends Component {
 }
 
 export default ProductConfig;
-export { Color };

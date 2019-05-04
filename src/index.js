@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import ProductConfig, { Color } from "./ProductConfig";
+import ProductConfig from "./ProductConfig";
 import Canvas from "./Canvas";
 
 const colorOptions = [
@@ -80,16 +80,16 @@ const colorArray1 = colorOptions.slice(0, 4);
 
 ReactDOM.render(
   <ProductConfig colorOptions={colorArray1}>
-    {function(colorOptions, { zoom }, handleZoom) {
+    {function(colorOptions, { selectedColor, zoom }, handleZoom, handleColorSelect) {
       return (
         <div
           className="product-container wrap-reverse"
           style={{ background: "#f1f2f0" }}
         >
-          <Canvas colors={colorOptions[0]} zoom={zoom} />
+          <Canvas colors={selectedColor} zoom={zoom} />
 
           <div>
-            <h2 style={{ color: colorOptions[0].secondary }}>Endurance.</h2>
+            <h2 style={{ color: selectedColor.secondary }}>Endurance.</h2>
             <p>
               The Endurance collection celebrates some of the world's most
               arduous races, and the people who take-up their challenge.
@@ -99,11 +99,14 @@ ReactDOM.render(
               acomplishment, or your reminder to keep training for your next
               race.
             </p>
-            <Color colorOptions={colorOptions} />
+            <ProductConfig.Color 
+              colorOptions={colorOptions} 
+              colorChoice={selectedColor}
+              handleColorSelect={handleColorSelect} />
             <ProductConfig.Zoom
               zoom={zoom}
               handleZoom={handleZoom}
-              colorChoice={colorOptions[0]}
+              colorChoice={selectedColor}
             />
           </div>
         </div>
