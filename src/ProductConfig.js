@@ -2,12 +2,14 @@ import React from 'react';
 import Zoom from './Zoom';
 import Color from './Color';
 
+export const WatchContext = React.createContext();
+
 class ProductConfig extends React.Component {
   static Zoom = Zoom;
   static Color = Color;
 
   state = {
-    colorChoice: null,
+    colorChoice: this.props.colorChoice || this.props.colorOptions[0],
     zoom: this.props.zoom
   };
 
@@ -27,14 +29,16 @@ class ProductConfig extends React.Component {
 
   render() {
     return (
-      <div>
-        {this.props.children(
-          this.props.colorOptions,
-          this.state,
-          this.handleZoom,
-          this.handleColorChange
-        )}
-      </div>
+      <WatchContext.Provider
+        value={{
+          colorOptions: this.props.colorOptions,
+          ...this.state,
+          handleColorChange: this.handleColorChange,
+          handleZoom: this.handleZoom
+        }}
+      >
+        {this.props.children({ ...this.state })}
+      </WatchContext.Provider>
     )
   }
 }

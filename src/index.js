@@ -83,11 +83,11 @@ ReactDOM.render(
   <ProductConfig
     colorOptions={colorArray1}
     zoom={1.4}>
-    {(colorOptions, { zoom, colorChoice }, handleZoom, handleColorChange) => (
-      <div className="product-container">
+    {({ zoom, colorChoice }) => (
+      <div className="product-container wrap-reverse">
         <Canvas colors={colorChoice || colorOptions[0]} zoom={zoom} />
-        <ProductConfig.Color colorOptions={colorOptions} handleColorChange={handleColorChange} />
-        <ProductConfig.Zoom zoom={zoom} handleZoom={handleZoom} />
+        <ProductConfig.Color />
+        <ProductConfig.Zoom />
       </div>
     )}
   </ProductConfig>, 
