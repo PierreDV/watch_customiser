@@ -9,6 +9,7 @@ function Color(props) {
             type="radio"
             name="colorChoice"
             value={JSON.stringify(option)}
+            onChange={() => props.handleColorChange(option)}
           />
           <ul>
             <li style={{ backgroundColor: option.primary }} />

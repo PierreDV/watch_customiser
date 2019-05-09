@@ -21,12 +21,18 @@ class ProductConfig extends React.Component {
     this.setState({ zoom: value });
   };
 
+  handleColorChange = value => {
+    this.setState({ colorChoice: value });
+  }
+
   render() {
     return (
       <div>
         {this.props.children(
-          this.state.zoom,
-          this.handleZoom
+          this.props.colorOptions,
+          this.state,
+          this.handleZoom,
+          this.handleColorChange
         )}
       </div>
     )
