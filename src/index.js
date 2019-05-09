@@ -77,13 +77,17 @@ const colorOptions = [
   }
 ];
 
+const colorArray1 = colorOptions.slice(0, 4);
+
 ReactDOM.render(
   <ProductConfig
+    colorOptions={colorArray1}
     zoom={1.4}>
-    {(zoom, handleZoom) => (
+    {(colorOptions, { zoom }, handleZoom) => (
       <div className="product-container">
+        <ProductConfig.Color colorOptions={colorOptions} />
         <ProductConfig.Zoom zoom={zoom} handleZoom={handleZoom} />
-        <Canvas zoom={zoom} />
+        <Canvas colors={colorOptions[0]} zoom={zoom} />
       </div>
     )}
   </ProductConfig>, 

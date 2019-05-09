@@ -4,6 +4,7 @@ import Color from './Color';
 
 class ProductConfig extends React.Component {
   static Zoom = Zoom;
+  static Color = Color;
 
   state = {
     colorChoice: null,
