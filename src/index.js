@@ -25,16 +25,30 @@ class ProductConfig extends React.Component {
 
   render() {
     return (
-      <div className="product-container">
-        <Canvas colorChoice={this.state.colorChoice} zoom={this.state.zoom} />
-        <Color
-          colorChoice={this.state.colorChoice}
-          onChange={this.handleChange}
-        />
-        <Zoom zoom={this.state.zoom} onChange={this.handleChange} />
+      <div>
+        {this.props.children(
+          this.state.colorChoice,
+          this.state.zoom,
+          this.handleChange
+        )}
       </div>
-    );
+    )
   }
 }
 
-ReactDOM.render(<ProductConfig />, document.getElementById("root"));
+ReactDOM.render(
+  <ProductConfig>
+    {(colorChoice, zoom, handleChange) => (
+      <div className="product-container">
+        <h1>Watch Customiser</h1>
+        <Color 
+          colorChoice={colorChoice}
+          onChange={handleChange}
+        />
+        <Zoom zoom={zoom} onChange={handleChange} />
+        <Canvas colorChoice={colorChoice} zoom={zoom} />
+      </div>
+    )}
+  </ProductConfig>, 
+  document.getElementById("root")
+);
