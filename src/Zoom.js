@@ -4,7 +4,7 @@ import { WatchContext } from './ProductConfig';
 
 function Zoom() {
   const context = useContext(WatchContext);
-  console.log(context)
+
   return (
     <div className="zoom">
       <label>
