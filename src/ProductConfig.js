@@ -1,35 +1,27 @@
-import React, { createContext } from 'react';
+import React, { createContext, useState } from 'react';
 
 export const WatchContext = createContext();
 
-function ProductConfig({children, colorChoice, colorOptions, zoom}) {
+function ProductConfig(props) {
 
-  const [state, setState] = React.useState({
-    colorChoice: colorChoice || colorOptions[0],
-    zoom
-  });
-
-  const handleZoom = zoom => {
-    setState(prevState => ({ ...prevState, zoom }))
-  }
-
-  const handleColorChange = colorChoice => {
-    setState(prevState => ({ ...prevState, colorChoice }))
-  }
+  const [colorChoice, setColorChoice] = useState(props.colorChoice || props.colorOptions[0]);
+  const [zoom, setZoom] = useState(props.zoom);
+  const handleZoom = value => setZoom(value);
+  const handleColorChange = value => setColorChoice(value);
 
   return (
     <WatchContext.Provider
       value={{
-        colorOptions,
-        ...state,
+        colorOptions: props.colorOptions,
+        colorChoice,
+        zoom,
         handleColorChange,
         handleZoom
       }}
     >
-      {children({ ...state })}
+      {props.children({ colorChoice, zoom })}
     </WatchContext.Provider>
   )
- 
 }
 
 export default ProductConfig;
