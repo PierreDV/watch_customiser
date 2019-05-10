@@ -1,12 +1,8 @@
 import React from 'react';
-import Zoom from './Zoom';
-import Color from './Color';
 
 export const WatchContext = React.createContext();
 
 class ProductConfig extends React.Component {
-  static Zoom = Zoom;
-  static Color = Color;
 
   state = {
     colorChoice: this.props.colorChoice || this.props.colorOptions[0],

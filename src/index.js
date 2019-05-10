@@ -4,6 +4,8 @@ import "rc-slider/assets/index.css";
 import "./index.css";
 import ProductConfig from './ProductConfig';
 import Canvas from "./Canvas";
+import Zoom from './Zoom';
+import Color from './Color';
 
 const colorOptions = [
   {
@@ -80,14 +82,12 @@ const colorOptions = [
 const colorArray1 = colorOptions.slice(0, 4);
 
 ReactDOM.render(
-  <ProductConfig
-    colorOptions={colorArray1}
-    zoom={1.4}>
+  <ProductConfig colorOptions={colorArray1}>
     {({ zoom, colorChoice }) => (
       <div className="product-container wrap-reverse">
         <Canvas colors={colorChoice || colorOptions[0]} zoom={zoom} />
-        <ProductConfig.Color />
-        <ProductConfig.Zoom />
+        <Color />
+        <Zoom />
       </div>
     )}
   </ProductConfig>, 
