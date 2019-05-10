@@ -1,42 +1,35 @@
-import React from 'react';
+import React, { createContext } from 'react';
 
-export const WatchContext = React.createContext();
+export const WatchContext = createContext();
 
-class ProductConfig extends React.Component {
+function ProductConfig({children, colorChoice, colorOptions, zoom}) {
 
-  state = {
-    colorChoice: this.props.colorChoice || this.props.colorOptions[0],
-    zoom: this.props.zoom
-  };
+  const [state, setState] = React.useState({
+    colorChoice: colorChoice || colorOptions[0],
+    zoom
+  });
 
-  handleChange = e => {
-    let change = {};
-    change[e.target.name] = JSON.parse(e.target.value);
-    this.setState(change);
-  };
-
-  handleZoom = value => {
-    this.setState({ zoom: value });
-  };
-
-  handleColorChange = value => {
-    this.setState({ colorChoice: value });
+  const handleZoom = zoom => {
+    setState(prevState => ({ ...prevState, zoom }))
   }
 
-  render() {
-    return (
-      <WatchContext.Provider
-        value={{
-          colorOptions: this.props.colorOptions,
-          ...this.state,
-          handleColorChange: this.handleColorChange,
-          handleZoom: this.handleZoom
-        }}
-      >
-        {this.props.children({ ...this.state })}
-      </WatchContext.Provider>
-    )
+  const handleColorChange = colorChoice => {
+    setState(prevState => ({ ...prevState, colorChoice }))
   }
+
+  return (
+    <WatchContext.Provider
+      value={{
+        colorOptions,
+        ...state,
+        handleColorChange,
+        handleZoom
+      }}
+    >
+      {children({ ...state })}
+    </WatchContext.Provider>
+  )
+ 
 }
 
 export default ProductConfig;
